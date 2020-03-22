@@ -3,21 +3,16 @@ module.exports = function transform(arr) {
         let array = [];
         for (let i = 0; i < arr.length; i++) {
             if (arr[i] == '--double-next') {
-                array.push(arr[i + 1])
-            } else if (arr[i] == '--discard-next') {
-                i++;
-            } else if (arr[i] == '--discard-prev') {
-                array.splice(array.length-1,1);
-            } else if (arr[i] == '--double-prev') {
-                array.push(array[i-1])
+                if (i + 1 < arr.length) array.push(arr[i + 1]);
+            } 
+            else if (arr[i] == '--discard-next') i++;
+            else if (arr[i] == '--discard-prev') array.pop();
+            else if (arr[i] == '--double-prev') {
+                if (i - 1 >= 0) array.push(arr[i - 1]);
             }
-            else {
-                array.push(arr[i]);
-            }
+            else array.push(arr[i]);
         } return array;
     } else throw Error;    
-    //throw 'Not implemented';
-    // remove line with error and write your code here
 };
 
 //console.log(transform(arr))
